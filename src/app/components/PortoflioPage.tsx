@@ -1,7 +1,7 @@
 import {Github, Linkedin, LinkIcon, Mail, Twitter} from "lucide-react";
-import {Button} from "@/src/components/ui/button";
-import {Card, CardContent, CardHeader, CardTitle} from "@/src/components/ui/card";
-import {Badge} from "@/src/components/ui/badge";
+import {Button} from "../../components/ui/button";
+import {Card, CardContent, CardHeader, CardTitle} from "../../components/ui/card";
+import {Badge} from "../../components/ui//badge";
 
 // Constantes para facilitar futuras modificações
 const BACKGROUND_COLOR = "bg-zinc-900";
