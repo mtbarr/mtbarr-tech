@@ -3,8 +3,8 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {Github, Linkedin, LinkIcon, Mail, Twitter} from "lucide-react";
 
-// dark gray
-const BACKGROUND_COLOR = "bg-zinc-900";
+// Constantes para facilitar futuras modificações
+const BACKGROUND_COLOR = "bg-blue-900";
 const BORDER_COLOR = "border-zinc-800";
 const TEXT_COLOR_PRIMARY = "text-white";
 const TEXT_COLOR_SECONDARY = "text-gray-300";
