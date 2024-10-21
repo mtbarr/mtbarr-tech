@@ -1,10 +1,10 @@
 import {Github, Linkedin, LinkIcon, Mail, Twitter} from "lucide-react";
-import {Button} from "../../components/ui/button";
-import {Card, CardContent, CardHeader, CardTitle} from "../../components/ui/card";
-import {Badge} from "../../components/ui//badge";
+import {Button} from "@/components/ui/button";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Badge} from "@/components/ui/badge";
 
-// Constantes para facilitar futuras modificações
-const BACKGROUND_COLOR = "bg-zinc-900";
+
+const BACKGROUND_COLOR = "bg-neutral-800";
 const BORDER_COLOR = "border-zinc-800";
 const TEXT_COLOR_PRIMARY = "text-white";
 const TEXT_COLOR_SECONDARY = "text-gray-300";
@@ -37,7 +37,8 @@ function SocialLinks() {
     const links = [
         {href: "https://github.com/mtbarr", icon: Github},
         {href: "https://twitter.com/mawbarrx", icon: Twitter},
-        {href: "https://www.linkedin.com/in/matheusbarret/", icon: Linkedin}
+        {href: "https://www.linkedin.com/in/matheusbarret/", icon: Linkedin},
+        {href: "mailto:matheusbarretoribeiro2@gmail.com", icon: Mail}
     ];
 
     return (
@@ -62,10 +63,6 @@ function ProfileCard() {
                 className="rounded-full w-64 h-64 mx-auto mb-4"
             />
             <h1 className="text-2xl font-bold mb-2">Matheus Barreto</h1>
-            <div className="flex items-center text-gray-400 mb-4">
-                <Mail className="mr-2 h-4 w-4 flex-shrink-0"/>
-                <span className="text-sm break-all">matheusbarretoribeiro2@gmail.com</span>
-            </div>
             <SocialLinks/>
         </div>
     );
