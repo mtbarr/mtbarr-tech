@@ -4,7 +4,8 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/src/components/ui/card
 import {Badge} from "@/src/components/ui/badge";
 
 
-const BACKGROUND_COLOR = "bg-neutral-800";
+const BACKGROUND_COLOR = "bg-slate-950";
+const CARD_BACKGROUND_COLOR = "bg-slate-900";
 const BORDER_COLOR = "border-zinc-800";
 const TEXT_COLOR_PRIMARY = "text-white";
 const TEXT_COLOR_SECONDARY = "text-gray-300";
@@ -15,7 +16,6 @@ interface Project {
     readonly url: string;
 }
 
-// Dados de projetos
 const PROJECTS: Project[] = [
     {
         name: "translatica",
@@ -24,7 +24,6 @@ const PROJECTS: Project[] = [
     },
 ];
 
-// Habilidades
 const SKILLS = [
     "Kotlin", "Jetpack Compose", "Java", "Spring Framework",
     "JavaScript", "React", "Next.js", "TypeScript",
@@ -32,18 +31,17 @@ const SKILLS = [
     "GraphQL", "Docker"
 ];
 
-// Componentes reutilizáveis para modularização
-function SocialLinks() {
-    const links = [
-        {href: "https://github.com/mtbarr", icon: Github},
-        {href: "https://twitter.com/mawbarrx", icon: Twitter},
-        {href: "https://www.linkedin.com/in/matheusbarret/", icon: Linkedin},
-        {href: "mailto:matheusbarretoribeiro2@gmail.com", icon: Mail}
-    ];
+const SOCIAL_MEDIA_LINKS = [
+    {href: "https://github.com/mtbarr", icon: Github},
+    {href: "https://twitter.com/mawbarrx", icon: Twitter},
+    {href: "https://www.linkedin.com/in/matheusbarret/", icon: Linkedin},
+    {href: "mailto:matheusbarretoribeiro2@gmail.com", icon: Mail}
+];
 
+function SocialLinks() {
     return (
         <div className="flex space-x-2">
-            {links.map(({href, icon: Icon}, index) => (
+            {SOCIAL_MEDIA_LINKS.map(({href, icon: Icon}, index) => (
                 <Button key={index} variant="outline" size="icon" asChild>
                     <a href={href} target="_blank" rel="noopener noreferrer">
                         <Icon className="h-4 w-4"/>
@@ -70,7 +68,7 @@ function ProfileCard() {
 
 function SkillsCard() {
     return (
-        <Card className={`mb-6 ${BACKGROUND_COLOR} ${BORDER_COLOR}`}>
+        <Card className={`mb-6 ${CARD_BACKGROUND_COLOR} ${BORDER_COLOR}`}>
             <CardHeader>
                 <CardTitle className={TEXT_COLOR_PRIMARY}>Skills</CardTitle>
             </CardHeader>
@@ -89,12 +87,14 @@ function SkillsCard() {
 
 function ProjectCard({project}: { project: Project }) {
     return (
-        <Card className={`${BACKGROUND_COLOR} ${BORDER_COLOR}`}>
+        <Card className={`${CARD_BACKGROUND_COLOR} ${BORDER_COLOR}`}>
             <CardHeader>
                 <CardTitle className={`flex items-center justify-between ${TEXT_COLOR_PRIMARY}`}>
                     <span>{project.name}</span>
                     <Button variant="ghost" size="icon">
-                        <LinkIcon className="h-4 w-4"/>
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">
+                            <LinkIcon className="h-4 w-4"/>
+                        </a>
                     </Button>
                 </CardTitle>
             </CardHeader>
@@ -118,7 +118,7 @@ export default function PortfolioPage() {
                     {/* Main content */}
                     <div className="md:col-span-3">
                         {/* Summary */}
-                        <Card className={`mb-6 ${BACKGROUND_COLOR} ${BORDER_COLOR}`}>
+                        <Card className={`mb-6 ${CARD_BACKGROUND_COLOR} ${BORDER_COLOR}`}>
                             <CardHeader>
                                 <CardTitle className={TEXT_COLOR_PRIMARY}>Summary</CardTitle>
                             </CardHeader>

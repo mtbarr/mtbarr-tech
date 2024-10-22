@@ -4,9 +4,6 @@
     <option name="show" value="ASK" />
     <option name="description" value="" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="59046bca-e015-46d3-aaae-ba285705f97f" />
-  </component>
   <component name="ProjectRootManager">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
