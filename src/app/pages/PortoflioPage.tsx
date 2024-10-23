@@ -9,6 +9,7 @@ const CARD_BACKGROUND_COLOR = "bg-slate-900";
 const BORDER_COLOR = "border-zinc-800";
 const TEXT_COLOR_PRIMARY = "text-white";
 const TEXT_COLOR_SECONDARY = "text-gray-300";
+const BUTTON_COLOR = "bg-slate-900 text-white-500"; // Exemplo de classe Tailwind
 
 interface Project {
     readonly name: string;
@@ -28,7 +29,7 @@ const SKILLS = [
     "Kotlin", "Jetpack Compose", "Java", "Spring Framework",
     "JavaScript", "React", "Next.js", "TypeScript",
     "Node.js", "Express", "MongoDB", "PostgreSQL",
-    "GraphQL", "Docker"
+    "GraphQL", "Docker", "Redis", "MySQL"
 ];
 
 const SOCIAL_MEDIA_LINKS = [
@@ -38,13 +39,20 @@ const SOCIAL_MEDIA_LINKS = [
     {href: "mailto:matheusbarretoribeiro2@gmail.com", icon: Mail}
 ];
 
+
 function SocialLinks() {
     return (
-        <div className="flex space-x-2 ">
+        <div className="flex space-x-2">
             {SOCIAL_MEDIA_LINKS.map(({href, icon: Icon}, index) => (
-                <Button key={index} variant="outline" size="icon" asChild>
+                <Button
+                    key={index}
+                    variant="default"
+                    size="icon"
+                    asChild
+                    className={BUTTON_COLOR} // Define a cor do botão usando Tailwind
+                >
                     <a href={href} target="_blank" rel="noopener noreferrer">
-                        <Icon className="bg-slate-900 h-4 w-4"/>
+                        <Icon className="h-4 w-4"/>
                     </a>
                 </Button>
             ))}
