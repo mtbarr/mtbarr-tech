@@ -40,11 +40,11 @@ const SOCIAL_MEDIA_LINKS = [
 
 function SocialLinks() {
     return (
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 ">
             {SOCIAL_MEDIA_LINKS.map(({href, icon: Icon}, index) => (
                 <Button key={index} variant="outline" size="icon" asChild>
                     <a href={href} target="_blank" rel="noopener noreferrer">
-                        <Icon className="h-4 w-4"/>
+                        <Icon className="bg-slate-900 h-4 w-4"/>
                     </a>
                 </Button>
             ))}
