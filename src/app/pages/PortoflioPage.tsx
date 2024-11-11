@@ -16,7 +16,7 @@ interface SocialLink {
 
 const SOCIAL_LINKS: SocialLink[] = [
   { href: 'https://github.com/mtbarr', icon: <Github className="h-4 w-4" /> },
-  { href: 'https://twitter.com/mawbarrx', icon: <Twitter className="h-4 w-4" /> },
+  { href: 'https://twitter.com/mtbarrx', icon: <Twitter className="h-4 w-4" /> },
   { href: 'https://www.linkedin.com/in/matheusbarret', icon: <Linkedin className="h-4 w-4" /> },
 ];
 
