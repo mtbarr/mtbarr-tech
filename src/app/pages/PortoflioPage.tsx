@@ -1,158 +1,193 @@
-import {Github, Linkedin, LinkIcon, Mail, Twitter} from "lucide-react";
-import {Button} from "@/src/components/ui/button";
-import {Card, CardContent, CardHeader, CardTitle} from "@/src/components/ui/card";
-import {Badge} from "@/src/components/ui/badge";
+'use client'
 
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Github, Linkedin, LinkIcon, Mail, Twitter, Calendar, Moon, Sun } from 'lucide-react'
 
-const BACKGROUND_COLOR = "bg-slate-950";
-const CARD_BACKGROUND_COLOR = "bg-slate-900";
-const BORDER_COLOR = "border-zinc-800";
-const TEXT_COLOR_PRIMARY = "text-white";
-const TEXT_COLOR_SECONDARY = "text-gray-300";
-const BUTTON_COLOR = "bg-slate-900 text-white-500"; // Exemplo de classe Tailwind
-
-interface Project {
-    readonly name: string;
-    readonly description: string;
-    readonly url: string;
-}
-
-const PROJECTS: Project[] = [
-    {
-        name: "translatica",
-        description: "Translatica is a lightweight Java library for managing localized messages and translations with ResourceBundle support",
-        url: "https://github.com/mtbarr/translatica"
-    },
+const PROFILE_IMAGE_URL = 'https://i.imgur.com/07u43SF.jpeg';
+const EMAIL = 'mtbarrdev@gmail.com';
+const SOCIAL_LINKS = [
+  { href: 'https://github.com/mtbarr', icon: <Github className="h-4 w-4" /> },
+  { href: 'https://twitter.com/mawbarrx', icon: <Twitter className="h-4 w-4" /> },
+  { href: 'https://www.linkedin.com/in/matheusbarret', icon: <Linkedin className="h-4 w-4" /> },
 ];
 
-const SKILLS = [
-    "Kotlin", "Jetpack Compose", "Java", "Spring Framework",
-    "JavaScript", "React", "Next.js", "TypeScript",
-    "Node.js", "Express", "MongoDB", "PostgreSQL",
-    "GraphQL", "Docker", "Redis", "MySQL"
-];
+const COLORS = {
+  lightBackground: 'bg-gray-100',
+  darkBackground: 'dark:bg-zinc-800',
+  lightBorder: 'border-gray-200',
+  darkBorder: 'dark:border-zinc-700',
+  lightText: 'text-gray-700',
+  darkText: 'dark:text-gray-300',
+  lightIconText: 'text-gray-600',
+  darkIconText: 'dark:text-gray-400',
+  whiteText: 'text-black dark:text-white',
+  darkModeBackground: 'bg-white dark:bg-zinc-900 text-black dark:text-white',
+};
 
-const SOCIAL_MEDIA_LINKS = [
-    {href: "https://github.com/mtbarr", icon: Github},
-    {href: "https://twitter.com/mawbarrx", icon: Twitter},
-    {href: "https://www.linkedin.com/in/matheusbarret/", icon: Linkedin},
-    {href: "mailto:matheusbarretoribeiro2@gmail.com", icon: Mail}
-];
+const DarkModeToggle = ({ darkMode, toggleDarkMode }) => (
+  <div className="flex justify-end mb-4">
+    <Button onClick={toggleDarkMode} variant="outline" size="icon">
+      {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </Button>
+  </div>
+);
 
+const ProfileCard = () => (
+  <div className="sticky top-8">
+    <img
+      src={PROFILE_IMAGE_URL}
+      alt="Perfil"
+      className="rounded-full w-64 h-64 mx-auto mb-4"
+    />
+    <h1 className="text-2xl font-bold mb-2">Matheus Barreto</h1>
+    <div className={`flex items-center ${COLORS.lightIconText} ${COLORS.darkIconText} mb-4`}>
+      <Mail className="mr-2 h-4 w-4 flex-shrink-0" />
+      <span className="text-sm break-all">{EMAIL}</span>
+    </div>
+    <div className="flex space-x-2">
+      {SOCIAL_LINKS.map((link, index) => (
+        <Button key={index} variant="outline" size="icon" asChild>
+          <a href={link.href} target="_blank" rel="noopener noreferrer">
+            {link.icon}
+          </a>
+        </Button>
+      ))}
+    </div>
+  </div>
+);
 
-function SocialLinks() {
-    return (
-        <div className="flex space-x-2">
-            {SOCIAL_MEDIA_LINKS.map(({href, icon: Icon}, index) => (
-                <Button
-                    key={index}
-                    variant="default"
-                    size="icon"
-                    asChild
-                    className={BUTTON_COLOR} // Define a cor do botão usando Tailwind
-                >
-                    <a href={href} target="_blank" rel="noopener noreferrer">
-                        <Icon className="h-4 w-4"/>
-                    </a>
-                </Button>
-            ))}
-        </div>
-    );
-}
+const SkillBadges = ({ skills }) => (
+  <Card className={`mb-6 ${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
+    <CardHeader>
+      <CardTitle className={COLORS.whiteText}>Habilidades</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="flex flex-wrap gap-2">
+        {skills.map((skill, index) => (
+          <Badge key={index} variant="secondary" className={`bg-gray-200 dark:bg-zinc-700 ${COLORS.lightText} ${COLORS.darkText}`}>
+            {skill}
+          </Badge>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+);
 
-function ProfileCard() {
-    return (
-        <div className="sticky top-8">
-            <img
-                src="https://i.imgur.com/07u43SF.jpeg"
-                alt="Profile"
-                className="rounded-full w-64 h-64 mx-auto mb-4"
-            />
-            <h1 className="text-2xl font-bold mb-2">Matheus Barreto</h1>
-            <SocialLinks/>
-        </div>
-    );
-}
+const ArticleCard = ({ article }) => (
+  <Card className={`${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
+    <CardHeader>
+      <CardTitle className={COLORS.whiteText}>
+        <a href={article.link} className="hover:underline">{article.title}</a>
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className={`${COLORS.lightText} ${COLORS.darkText} mb-2`}>{article.description}</p>
+      <div className={`flex items-center ${COLORS.lightIconText} ${COLORS.darkIconText} text-sm`}>
+        <Calendar className="mr-2 h-4 w-4" />
+        <span>{article.date}</span>
+      </div>
+    </CardContent>
+  </Card>
+);
 
-function SkillsCard() {
-    return (
-        <Card className={`mb-6 ${CARD_BACKGROUND_COLOR} ${BORDER_COLOR}`}>
-            <CardHeader>
-                <CardTitle className={TEXT_COLOR_PRIMARY}>Skills</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-wrap gap-2">
-                    {SKILLS.map((skill, index) => (
-                        <Badge key={index} variant="secondary" className="bg-zinc-800 text-gray-300">
-                            {skill}
-                        </Badge>
-                    ))}
-                </div>
-            </CardContent>
-        </Card>
-    );
-}
-
-function ProjectCard({project}: { project: Project }) {
-    return (
-        <Card className={`${CARD_BACKGROUND_COLOR} ${BORDER_COLOR}`}>
-            <CardHeader>
-                <CardTitle className={`flex items-center justify-between ${TEXT_COLOR_PRIMARY}`}>
-                    <span>{project.name}</span>
-                    <Button variant="ghost" size="icon">
-                        <a href={project.url} target="_blank" rel="noopener noreferrer">
-                            <LinkIcon className="h-4 w-4"/>
-                        </a>
-                    </Button>
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className={TEXT_COLOR_SECONDARY}>{project.description}</p>
-            </CardContent>
-        </Card>
-    );
-}
+const ProjectCard = ({ project }) => (
+  <Card className={`${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
+    <CardHeader>
+      <CardTitle className={`${COLORS.whiteText} flex items-center justify-between`}>
+      <a href={project.link} className="hover:underline">{project.title}</a>
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className={`${COLORS.lightText} ${COLORS.darkText} mb-2`}>{project.description}</p>
+      <div className="flex flex-wrap gap-2 mt-2">
+        {project.technologies.map((tech, index) => (
+          <Badge key={index} variant="secondary" className={`bg-gray-200 dark:bg-zinc-700 ${COLORS.lightText} ${COLORS.darkText}`}>
+            {tech}
+          </Badge>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+);
 
 export default function PortfolioPage() {
-    return (
-        <div className={`min-h-screen ${BACKGROUND_COLOR} ${TEXT_COLOR_PRIMARY}`}>
-            <div className="max-w-6xl mx-auto px-4 py-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    {/* Sidebar */}
-                    <div className="md:col-span-1">
-                        <ProfileCard/>
-                    </div>
+  const [darkMode, setDarkMode] = useState(true);
 
-                    {/* Main content */}
-                    <div className="md:col-span-3">
-                        {/* Summary */}
-                        <Card className={`mb-6 ${CARD_BACKGROUND_COLOR} ${BORDER_COLOR}`}>
-                            <CardHeader>
-                                <CardTitle className={TEXT_COLOR_PRIMARY}>Summary</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className={TEXT_COLOR_SECONDARY}>
-                                    I started coding as a hobby when I was 9 years old, back in 2010. My favorite
-                                    languages are Java and Kotlin, which I enjoy working with the most. I&#39;ve been
-                                    working professionally as a developer since 2018, and you’ll often find me working
-                                    on Minecraft projects in my free time.
-                                </p>
-                            </CardContent>
-                        </Card>
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
 
-                        {/* Skills */}
-                        <SkillsCard/>
+  // Função para alternar o modo escuro
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
-                        {/* Projects */}
-                        <h2 className="text-xl font-bold mb-4">Featured Projects</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {PROJECTS.map((project, index) => (
-                                <ProjectCard key={index} project={project}/>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+  // Dados das habilidades
+  const skills = [
+    'Kotlin', 'Jetpack Compose', 'Java', 'Spring Framework',
+    'JavaScript', 'React', 'Next.js', 'TypeScript',
+    'Node.js', 'Express', 'MongoDB', 'PostgreSQL',
+    'GraphQL', 'Docker'
+  ];
+
+  // Dados dos projetos
+  const projects = [
+    {
+      title: 'translatica',
+      description: 'Biblioteca Java para gerenciar mensagens e traduções.',
+      technologies: ['Java'],
+      link: 'https://github.com/mtbarr/translatica'
+    }
+  ];
+
+  // Dados dos artigos
+  const articles = [
+    {
+      title: 'Boas práticas de código em java',
+      date: '2023-05-15',
+      description: 'Um breve compilado de boas práticas de código em java que pode salvar sua aplicação.;',
+      link: '#'
+    }
+  ];
+
+  return (
+    <div className={`min-h-screen ${COLORS.darkModeBackground} transition-colors duration-300`}>
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="md:col-span-1">
+            <ProfileCard />
+          </div>
+          <div className="md:col-span-3">
+            <Card className={`mb-6 ${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
+              <CardHeader>
+                <CardTitle className={COLORS.whiteText}>Resumo</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className={`${COLORS.lightText} ${COLORS.darkText}`}>
+                  Comecei a programar como hobby quando tinha 9 anos, lá em 2010.
+                  Minhas linguagens favoritas são Java e Kotlin, nas quais gosto de trabalhar.
+                  Trabalho profissionalmente como desenvolvedor desde 2018, e você geralmente me encontrará trabalhando em projetos de Minecraft no meu tempo livre.
+                </p>
+              </CardContent>
+            </Card>
+            <SkillBadges skills={skills} />
+            <h2 className="text-xl font-bold mb-4">Projetos em Destaque</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              {projects.map((project, index) => (
+                <ProjectCard key={index} project={project} />
+              ))}
             </div>
+            <h2 className="text-xl font-bold mb-4">Artigos Recentes</h2>
+            <div className="space-y-4">
+              {articles.map((article, index) => (
+                <ArticleCard key={index} article={article} />
+              ))}
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
