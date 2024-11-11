@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Github, Linkedin, LinkIcon, Mail, Twitter, Calendar, Moon, Sun } from 'lucide-react'
+import { Github, Linkedin, Mail, Twitter, Calendar, Moon, Sun } from 'lucide-react'
 
 const PROFILE_IMAGE_URL = 'https://i.imgur.com/07u43SF.jpeg';
 const EMAIL = 'mtbarrdev@gmail.com';
