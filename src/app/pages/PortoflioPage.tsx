@@ -8,13 +8,32 @@ import { Github, Linkedin, Mail, Twitter, Calendar, Moon, Sun } from 'lucide-rea
 
 const PROFILE_IMAGE_URL = 'https://i.imgur.com/07u43SF.jpeg';
 const EMAIL = 'mtbarrdev@gmail.com';
-const SOCIAL_LINKS = [
+
+interface SocialLink {
+  href: string;
+  icon: JSX.Element;
+}
+
+const SOCIAL_LINKS: SocialLink[] = [
   { href: 'https://github.com/mtbarr', icon: <Github className="h-4 w-4" /> },
   { href: 'https://twitter.com/mawbarrx', icon: <Twitter className="h-4 w-4" /> },
   { href: 'https://www.linkedin.com/in/matheusbarret', icon: <Linkedin className="h-4 w-4" /> },
 ];
 
-const COLORS = {
+interface Colors {
+  lightBackground: string;
+  darkBackground: string;
+  lightBorder: string;
+  darkBorder: string;
+  lightText: string;
+  darkText: string;
+  lightIconText: string;
+  darkIconText: string;
+  whiteText: string;
+  darkModeBackground: string;
+}
+
+const COLORS: Colors = {
   lightBackground: 'bg-gray-100',
   darkBackground: 'dark:bg-zinc-800',
   lightBorder: 'border-gray-200',
@@ -27,7 +46,12 @@ const COLORS = {
   darkModeBackground: 'bg-white dark:bg-zinc-900 text-black dark:text-white',
 };
 
-const DarkModeToggle = ({ darkMode, toggleDarkMode }) => (
+interface DarkModeToggleProps {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ darkMode, toggleDarkMode }) => (
   <div className="flex justify-end mb-4">
     <Button onClick={toggleDarkMode} variant="outline" size="icon">
       {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -35,7 +59,7 @@ const DarkModeToggle = ({ darkMode, toggleDarkMode }) => (
   </div>
 );
 
-const ProfileCard = () => (
+const ProfileCard: React.FC = () => (
   <div className="sticky top-8">
     <img
       src={PROFILE_IMAGE_URL}
@@ -59,7 +83,11 @@ const ProfileCard = () => (
   </div>
 );
 
-const SkillBadges = ({ skills }) => (
+interface SkillBadgesProps {
+  skills: string[];
+}
+
+const SkillBadges: React.FC<SkillBadgesProps> = ({ skills }) => (
   <Card className={`mb-6 ${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
     <CardHeader>
       <CardTitle className={COLORS.whiteText}>Habilidades</CardTitle>
@@ -76,7 +104,18 @@ const SkillBadges = ({ skills }) => (
   </Card>
 );
 
-const ArticleCard = ({ article }) => (
+interface Article {
+  title: string;
+  date: string;
+  description: string;
+  link: string;
+}
+
+interface ArticleCardProps {
+  article: Article;
+}
+
+const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => (
   <Card className={`${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
     <CardHeader>
       <CardTitle className={COLORS.whiteText}>
@@ -93,11 +132,22 @@ const ArticleCard = ({ article }) => (
   </Card>
 );
 
-const ProjectCard = ({ project }) => (
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  link: string;
+}
+
+interface ProjectCardProps {
+  project: Project;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => (
   <Card className={`${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
     <CardHeader>
       <CardTitle className={`${COLORS.whiteText} flex items-center justify-between`}>
-      <a href={project.link} className="hover:underline">{project.title}</a>
+        <a href={project.link} className="hover:underline">{project.title}</a>
       </CardTitle>
     </CardHeader>
     <CardContent>
@@ -114,25 +164,22 @@ const ProjectCard = ({ project }) => (
 );
 
 export default function PortfolioPage() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
 
-  // Função para alternar o modo escuro
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  // Dados das habilidades
-  const skills = [
+  const skills: string[] = [
     'Kotlin', 'Jetpack Compose', 'Java', 'Spring Framework',
     'JavaScript', 'React', 'Next.js', 'TypeScript',
     'Node.js', 'Express', 'MongoDB', 'PostgreSQL',
     'GraphQL', 'Docker'
   ];
 
-  // Dados dos projetos
-  const projects = [
+  const projects: Project[] = [
     {
       title: 'translatica',
       description: 'Biblioteca Java para gerenciar mensagens e traduções.',
@@ -141,12 +188,11 @@ export default function PortfolioPage() {
     }
   ];
 
-  // Dados dos artigos
-  const articles = [
+  const articles: Article[] = [
     {
       title: 'Boas práticas de código em java',
       date: '2023-05-15',
-      description: 'Um breve compilado de boas práticas de código em java que pode salvar sua aplicação.;',
+      description: 'Um breve compilado de boas práticas de código em java que pode salvar sua aplicação.',
       link: '#'
     }
   ];
