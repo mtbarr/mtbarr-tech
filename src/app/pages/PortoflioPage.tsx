@@ -115,6 +115,17 @@ interface ArticleCardProps {
   article: Article;
 }
 
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  link: string;
+}
+
+interface ProjectCardProps {
+  project: Project;
+}
+
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => (
   <Card className={`${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
     <CardHeader>
@@ -132,16 +143,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => (
   </Card>
 );
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  link: string;
-}
 
-interface ProjectCardProps {
-  project: Project;
-}
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => (
   <Card className={`${COLORS.lightBackground} ${COLORS.darkBackground} ${COLORS.lightBorder} ${COLORS.darkBorder}`}>
@@ -185,6 +187,12 @@ export default function PortfolioPage() {
       description: 'Biblioteca Java para gerenciar mensagens e traduções.',
       technologies: ['Java'],
       link: 'https://github.com/mtbarr/translatica'
+    },
+    {
+      title: 'kairo',
+      description: 'Event bus para aplicaçoes java.',
+      technologies: ['Java'],
+      link: 'https://github.com/mtbarr/kairo'
     }
   ];
 
