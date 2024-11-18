@@ -166,7 +166,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => (
 );
 
 export default function PortfolioPage() {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
